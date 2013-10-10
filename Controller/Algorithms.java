@@ -11,5 +11,6 @@ public class Algorithms {
 
 	public class Algorithms() {
 		// Hello world! XD
+		// THE NIGHT IS NOT YOUNG! 
 	}
 }
