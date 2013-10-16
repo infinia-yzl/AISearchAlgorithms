@@ -1,41 +1,40 @@
 /**
- * A Node Object that stores a coordinate.
+ * A Node that stores a coordinate.
  * 
  * @author Isaac Yong
- * @version 1.0
+ * @version 15/10/2013
  */
 
-public class Node {
+public class Node implements Comparable<Node> {
 	private int x;
 	private int y;
 
-	public Node() {
+	public Node() {}
 
-	}
-
-	public Node(int x, int y)
-	{
+	public Node(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	public int getX()
-	{
+	public int getX() {
 		return this.x;
 	}
 
-	public int getY()
-	{
+	public int getY() {
 		return this.y;
 	}
 
-	public void setX(int x)
-	{
+	public void setX(int x) {
 		this.x = x;
 	}
 
-	public void setY(int y)
-	{
+	public void setY(int y) {
 		this.y = y;
+	}
+
+	public int compareTo(Node nodeB) {
+		if((this.x == nodeB.getX())&&(this.y == nodeB.getY()))
+			return 1;
+		return 0;
 	}
 }
