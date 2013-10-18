@@ -7,10 +7,10 @@
 
 public class Core {
 	public static void main(String[] args) {
-		// DFS dfs = new DFS("maze.txt");		
-		// dfs.compute();
+		DFS dfs = new DFS("maze.txt");		
+		dfs.compute();
 
-		BFS bfs = new BFS("maze.txt");		
-		bfs.compute();
+		// BFS bfs = new BFS("maze.txt");		
+		// bfs.compute();
 	}
 }

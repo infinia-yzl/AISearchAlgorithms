@@ -23,15 +23,13 @@ public class DFS extends Algorithms {
 		this.view.printMaze(this.currentNode, this.closedNodes); // Print the current maze
 		if(this.checkerObject.isGoal(this.currentNode)) {
 			// End of algorithm
+			this.view.printSolution(this.closedNodes, this.deadEndList);
 			this.view.printSuccess();
 			return;
 		}
 		this.checkerObject.nodeCheckAll(this.currentNode, this.closedNodes);
 		if(!stageOne()) {
-			if(!stageTwo()) {
-				this.view.printFailure();
-				return;
-			}
+			verifyDeadEnd();
 		}
 
 		// Repeat computation if not exhausted
@@ -43,7 +41,6 @@ public class DFS extends Algorithms {
 		this.closedNodes.add(new Node(this.currentNode.getX(), this.currentNode.getY())); // Create new Node to prevent pointing to currentNode's address
 		this.expandCounter++;
 		this.view.printCounter(this.expandCounter);
-		verifyDeadEnd();
 		
 		if(this.checkerObject.getUp()==1) {
 			// Able to move to up
@@ -65,117 +62,6 @@ public class DFS extends Algorithms {
 		return false;
 	}
 
-	// Stage Two Movement - Move back to explored node (no available unexplored nodes)
-	public boolean stageTwo() {
-		ArrayList<Integer> priorities = new ArrayList<Integer>(4); // Index: 0 is Up, 1 is Left, 2 is Down, 3 is Right
-		boolean isDead = false;
-
-		for (int a=0; a<4; a++) {
-			priorities.add(-1); // initialise ArrayList size
-		}
-
-		if(this.checkerObject.getUp()==2) {
-			// Able to move to up
-			isDead = false;
-			for (Node tmpDead : deadEndList) {
-				if(new Node(currentNode.getX()-1, currentNode.getY()).compareTo(tmpDead)==1) {
-					isDead = true;
-					break;
-				}
-			}
-			// Checks if the node above is a dead end
-			if(isDead == false) {
-				if(new Node(currentNode.getX()-1, currentNode.getY()).compareTo(this.closedNodes.get(this.closedNodes.size()-2))==1)
-					priorities.set(0, 1);
-				else
-					priorities.set(0, 0);
-			}
-		} 
-		if (this.checkerObject.getLeft()==2) {
-			// Able to move to left
-			isDead = false;
-			for (Node tmpDead : deadEndList) {
-				if(new Node(currentNode.getX(), currentNode.getY()-1).compareTo(tmpDead)==1) {
-					isDead = true;
-					break;
-				}
-			}
-			// Checks if the left node is a dead end
-			if(isDead == false) {
-				if(new Node(currentNode.getX(), currentNode.getY()-1).compareTo(this.closedNodes.get(this.closedNodes.size()-2))==1) {
-					priorities.set(1, 1);
-				}
-				else {
-					priorities.set(1, 0);
-				}
-			}
-		} 
-		if (this.checkerObject.getDown()==2) {
-			// Able to move to down
-			isDead = false;
-			for (Node tmpDead : deadEndList) {
-				if(new Node(currentNode.getX()+1, currentNode.getY()).compareTo(tmpDead)==1) {
-					isDead = true;
-					break;
-				}
-			}
-			// Checks if the node below is a dead end
-			if(isDead == false) {
-				if(new Node(currentNode.getX()+1, currentNode.getY()).compareTo(this.closedNodes.get(this.closedNodes.size()-2))==1)
-					priorities.set(2, 1);
-				else
-					priorities.set(2, 0);
-			}
-		} 
-		if (this.checkerObject.getRight()==2) {
-			// Able to move to right
-			isDead = false;
-			for (Node tmpDead : deadEndList) {
-				if(new Node(currentNode.getX(), currentNode.getY()+1).compareTo(tmpDead)==1) {
-					isDead = true;
-					break;
-				}
-			}
-			// Checks if the right node is a dead end
-			if(isDead == false) {
-				if(new Node(currentNode.getX(), currentNode.getY()+1).compareTo(this.closedNodes.get(this.closedNodes.size()-2))==1) {
-					priorities.set(3, 1);
-				}
-				else {
-					priorities.set(3, 0);
-				}
-			}
-		}
-
-		for (int i=0; i<4; i++) {
-			if(priorities.get(i)==0) {
-				if(i==0)
-					this.currentNode.setX(this.currentNode.getX()-1);
-				else if(i==1)
-					this.currentNode.setY(this.currentNode.getY()-1);
-				else if(i==2)
-					this.currentNode.setX(this.currentNode.getX()+1);
-				else if(i==3)
-					this.currentNode.setY(this.currentNode.getY()+1);
-				return true;
-			}
-		}
-		for (int i=0; i<4; i++) {
-			if(priorities.get(i)==1) {
-				if(i==0)
-					this.currentNode.setX(this.currentNode.getX()-1);
-				else if(i==1)
-					this.currentNode.setY(this.currentNode.getY()-1);
-				else if(i==2)
-					this.currentNode.setX(this.currentNode.getX()+1);
-				else if(i==3)
-					this.currentNode.setY(this.currentNode.getY()+1);
-				return true;
-			}
-		}
-		return false;
-	}
-
 	public void verifyDeadEnd() {
 		int deadCount = 0;
 		if(this.checkerObject.getUp()==0) {
@@ -192,7 +78,35 @@ public class DFS extends Algorithms {
 		}
 
 		if(deadCount==3) {
-			deadEndList.add(new Node(this.currentNode.getX(), this.currentNode.getY()));
+			backTrack();
+		}
+	}
+
+	// Traceback steps out of dead end
+	public void backTrack() {
+		boolean tmpCounter = false, skipCounter = false;
+		for(int i = closedNodes.size()-1; i >= 0; i--) {
+			skipCounter = false;
+			for (Node tmpDead : deadEndList) {
+				if((closedNodes.get(i).compareTo(tmpDead))==1){
+					skipCounter = true;
+					break;
+				}
+			}
+			if(skipCounter==false) {
+				this.currentNode = closedNodes.get(i);
+				this.checkerObject.nodeCheckAll(closedNodes.get(i), closedNodes);
+				if((checkerObject.getUp()==1)||(checkerObject.getLeft()==1)||(checkerObject.getDown()==1)||(checkerObject.getRight()==1)) {
+					return;
+				}
+				deadEndList.add(this.currentNode);
+				if(tmpCounter==true) {
+					this.view.printMaze(this.currentNode, this.closedNodes);
+					this.expandCounter++;
+					this.view.printCounter(this.expandCounter);
+				}
+				tmpCounter = true; // Toggle counter to start adding a step
+			}
 		}
 	}
 }

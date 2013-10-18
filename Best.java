@@ -1,21 +1,21 @@
 import java.util.*;
 
 /**
- * Greedy Best-First-Search Algorithms class.
+ * Best-First-Search Algorithms class.
  * 
  * @author Isaac Yong
  * @version 17/10/2013
  */
 
-public class GreedyBFS extends Algorithms {
+public class Best extends Algorithms {
 	private Node goal = null;
 
-	public GreedyBFS() {
+	public Best() {
 		super();
 		goal = this.checkerObject.getGoal();
 	}
 
-	public GreedyBFS(String fileName) {
+	public Best(String fileName) {
 		super(fileName);
 		goal = this.checkerObject.getGoal();
 	}
@@ -31,9 +31,14 @@ public class GreedyBFS extends Algorithms {
 	}
 
 	public Node stageOne() {
-		private int smallest = 0, index = -1;
-		private ArrayList<Node> tempNodeList = new ArrayList<Node>();
-		private ArrayList<Integer> distance = new ArrayList<Integer>(4, -1); // Initialise 4 slots with -1 as value
+		int smallest = 0, index = -1;
+		ArrayList<Node> tempNodeList = new ArrayList<Node>();
+		ArrayList<Integer> distance = new ArrayList<Integer>(4);
+		// Initialise 4 slots in distance ArrayList to -1
+		for (int i=0; i<4; i++) {
+			distance.add(-1);
+		}
+
 		this.closedNodes.add(this.currentNode);
 
 		if(this.checkerObject.getUp()==1) {

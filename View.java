@@ -58,6 +58,31 @@ public class View {
 		}
 	}
 
+	public void printSolution(ArrayList<Node> closedNodes, ArrayList<Node> deadEndList) {
+		// Closed nodes will use "X" symbol
+		for (Node closed : closedNodes) {
+			this.maze[closed.getX()][closed.getY()] = "X";
+		}
+		System.out.println();
+		System.out.println("--- Solution path ---");
+		for (int x = 0; x < size.getX(); x++) {
+			for (int y = 0; y < size.getY(); y++) {
+				if(!maze[x][y].equals("#")) {
+					for (Node n : deadEndList) {
+						if((x == n.getX())&&(y == n.getY())){
+							maze[x][y] = "X";
+							break; 
+						}
+						else
+							maze[x][y] = "O"; // Signifies solution path
+					}
+				}
+				System.out.print(maze[x][y]);	
+			}
+			System.out.println();
+		}
+	}
+
 	public void printCounter(int counter) {
 		System.out.println();
 		System.out.println("Step #" + counter);
