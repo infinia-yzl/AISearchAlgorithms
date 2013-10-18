@@ -33,8 +33,9 @@ public class Node implements Comparable<Node> {
 	}
 
 	public int compareTo(Node nodeB) {
-		if((this.x == nodeB.getX())&&(this.y == nodeB.getY()))
+		if((this.x == nodeB.getX())&&(this.y == nodeB.getY())) {
 			return 1;
+		}
 		return 0;
 	}
 }
