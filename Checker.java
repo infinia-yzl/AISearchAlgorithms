@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 
 /**
- * Checker class that contains general checking functions.
+ * File Checker.java
+ * Represents hecker class that contains general checking functions.
  * 
  * @author Isaac Yong
  * @version 14/10/2013
@@ -12,7 +13,13 @@ public class Checker {
 	private ArrayList<Node> wallList = null;
 	private ArrayList<Node> closedNodes = null;
 	private Node goal = null, size = null;
-
+	
+	
+        /**
+         * To call the parent constructor
+         * 
+         * @param fileName 
+         */
 	public Checker(String fileName) {
 		Model model = new Model(fileName);
 		this.wallList = model.getWalls(); // Assume the function will return an arraylist of walls
@@ -21,7 +28,9 @@ public class Checker {
 		this.goal = computeGoal(this.size); // Assume the model function will pass in the size stored in a Node
 	}
 
-	// Check all nodes
+	/**
+	 * To check all nodes
+	 */
 	public void nodeCheckAll(Node node, ArrayList<Node> closedNodes) {
 		this.closedNodes = closedNodes;
 		checkUp(node);
@@ -29,7 +38,12 @@ public class Checker {
 		checkDown(node);
 		checkRight(node);
 	}
-
+	
+	/**
+	 * To check if the node above is a wall, empty or visited
+	 * 
+	 * @param node
+	 */
 	public void checkUp(Node node) {
 		this.up = -1; // reset value to -1
 		// Prevent out of bounds (negative coordinates)
@@ -54,6 +68,11 @@ public class Checker {
 		}
 	}
 
+	/**
+	 * To check if the node on the left is a wall, empty or visited
+	 * 
+	 * @param node
+	 */
 	public void checkLeft(Node node) {
 		this.left = -1; // reset value to -1
 		// Prevent out of bounds (negative coordinates)
@@ -78,6 +97,11 @@ public class Checker {
 		}
 	}
 
+	/**
+	 * To check if the node below is a wall, empty or visited
+	 * 
+	 * @param node
+	 */
 	public void checkDown(Node node) {
 		this.down = -1; // reset value to -1
 		// Prevent out of bounds
@@ -102,6 +126,11 @@ public class Checker {
 		}
 	}
 
+	/**
+	 * To check if the node on the right is a wall, empty or visited
+	 * 
+	 * @param node
+	 */
 	public void checkRight(Node node) {
 		this.right = -1; // reset value to -1
 		// Prevent out of bounds
@@ -126,6 +155,13 @@ public class Checker {
 		}
 	}
 
+	/**
+	 * To check if the node is wall
+	 * 
+	 * @param node
+	 * 
+	 * @return true means it is not a wall
+	 */
 	public boolean checkWall(Node node) {
 		for(int i = 0; i < this.wallList.size(); i++) {
 			if(node.compareTo(this.wallList.get(i))==1)
@@ -133,19 +169,32 @@ public class Checker {
 		}
 		return true; // no wall
 	}
-
+	
+	/**
+	 * To check if the node is goal
+	 * 
+	 * @param node
+	 * 
+	 * @return false means it is not a goal
+	 */
 	public boolean isGoal(Node node) {
 		if(this.goal.compareTo(node)==1)
 			return true;
 		return false;
 	}
 
-	// Receives the maze size stored in a Node and computes the Goal Node coordinates.
+	/**
+	 * To receive the maze size stored in a Node and computes the Goal Node coordinates
+	 * 
+	 * @return goal node coordinates
+	 */
 	public Node computeGoal(Node mazeSize) {
 		return new Node((mazeSize.getX()-2), (mazeSize.getY()-1));
 	}
 
-	// Accessor functions for up, left, down, right, goal, wallList
+	/**
+	 * Accessor functions for up, left, down, right, goal, wallList
+	 */
 	public int getUp() {
 		return this.up;
 	}
