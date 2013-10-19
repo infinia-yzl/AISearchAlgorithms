@@ -7,61 +7,70 @@ import java.util.*;
  * @version 17/10/2013
  */
 
-public class Best extends Algorithms {
-	private Node goal = null;
+public class Best extends DFS {
 
 	public Best() {
 		super();
-		goal = this.checkerObject.getGoal();
 	}
 
 	public Best(String fileName) {
 		super(fileName);
-		goal = this.checkerObject.getGoal();
 	}
 
 	public void compute() {
+		this.view.printMaze(this.currentNode, this.closedNodes); // Print the current maze
 		this.checkerObject.nodeCheckAll(this.currentNode, this.closedNodes);
-		// stageOne will return greediest node
-		if(!this.checkerObject.isGoal(this.currentNode = stageOne())) {
+		this.stageOne();
+		if(!this.checkerObject.isGoal(this.currentNode)) {
 			compute();
 		}
-		else
+		else {
+			this.view.printMaze(this.currentNode, this.closedNodes); // Print the current maze
+			this.view.printSolution(this.closedNodes, this.deadEndList);
+			this.view.printSuccess();
 			return;
+		}
 	}
 
-	public Node stageOne() {
+	public boolean stageOne() {
 		int smallest = 0, index = -1;
-		ArrayList<Node> tempNodeList = new ArrayList<Node>();
+		ArrayList<Node> tempNodeList = new ArrayList<Node>(4);
 		ArrayList<Integer> distance = new ArrayList<Integer>(4);
 		// Initialise 4 slots in distance ArrayList to -1
 		for (int i=0; i<4; i++) {
 			distance.add(-1);
+			tempNodeList.add(new Node(-1, -1));
 		}
 
 		this.closedNodes.add(this.currentNode);
 
 		if(this.checkerObject.getUp()==1) {
 			// Able to move to up
-			tempNodeList.add(new Node((this.currentNode.getX()-1), (this.currentNode.getY())));
+			tempNodeList.set(0, new Node((this.currentNode.getX()-1), (this.currentNode.getY())));
 			distance.set(0, calculateDistance(tempNodeList.get(0)));
-		} else if (this.checkerObject.getLeft()==1) {
+		}
+		if (this.checkerObject.getLeft()==1) {
 			// Able to move to left
-			tempNodeList.add(new Node((this.currentNode.getX()), (this.currentNode.getY()-1)));
+			tempNodeList.set(1, new Node((this.currentNode.getX()), (this.currentNode.getY()-1)));
 			distance.set(1, calculateDistance(tempNodeList.get(1)));
-		} else if (this.checkerObject.getDown()==1) {
+		}
+		if (this.checkerObject.getDown()==1) {
 			// Able to move to down
-			tempNodeList.add(new Node((this.currentNode.getX()+1), (this.currentNode.getY())));
+			tempNodeList.set(2, new Node((this.currentNode.getX()+1), (this.currentNode.getY())));
 			distance.set(2, calculateDistance(tempNodeList.get(2)));
-		} else if (this.checkerObject.getRight()==1) {
+		}
+		if (this.checkerObject.getRight()==1) {
 			// Able to move to right
-			tempNodeList.add(new Node((this.currentNode.getX()), (this.currentNode.getY()+1)));
+			tempNodeList.set(3, new Node((this.currentNode.getX()), (this.currentNode.getY()+1)));
 			distance.set(3, calculateDistance(tempNodeList.get(3)));
 		}
 
+		// Make sure smallest variable starts out as biggest value
+		smallest = distance.get(0) + distance.get(1) + distance.get(2) + distance.get(3) + 999;
+
 		//TODO: resolve similar distances
-		for(int i = 0; i <= 4; i++) {
-			if((distance.get(i)>=0) && (distance.get(i) < smallest)) {
+		for(int i = 0; i < 4; i++) {
+			if((distance.get(i) >= 0) && (distance.get(i) < smallest)) {
 				smallest = distance.get(i);
 				index = i;
 			}
@@ -69,17 +78,15 @@ public class Best extends Algorithms {
 
 		// Hit dead end
 		if(index==-1) {
-			index = stageTwo(); // Returns index of previous node
+			super.verifyDeadEnd();
+		} else {
+			this.currentNode = tempNodeList.get(index);
 		}
 
-		return tempNodeList.get(index);
-	}
-
-	public int stageTwo() {
-		
+		return true;
 	}
 
 	public int calculateDistance(Node node) {
-		return (Math.abs(this.goal.getX() - node.getX()) + Math.abs(this.goal.getY() - node.getY()));
+		return (Math.abs(this.checkerObject.getGoal().getX() - node.getX()) + Math.abs(this.checkerObject.getGoal().getY() - node.getY()));
 	}
 }

@@ -67,7 +67,7 @@ public class View {
 		System.out.println("--- Solution path ---");
 		for (int x = 0; x < size.getX(); x++) {
 			for (int y = 0; y < size.getY(); y++) {
-				if(!maze[x][y].equals("#")) {
+				if((!maze[x][y].equals("#"))&&(!maze[x][y].equals(" "))) {
 					for (Node n : deadEndList) {
 						if((x == n.getX())&&(y == n.getY())){
 							maze[x][y] = "X";

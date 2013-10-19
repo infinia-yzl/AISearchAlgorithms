@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 
 public class DFS extends Algorithms {
-	private ArrayList<Node> deadEndList = null;
+	protected ArrayList<Node> deadEndList = null;
 
 	public DFS() {
 		super();

@@ -12,5 +12,8 @@ public class Core {
 
 		// BFS bfs = new BFS("maze.txt");		
 		// bfs.compute();
+
+		// Best best = new Best("maze.txt");
+		// best.compute();
 	}
 }
