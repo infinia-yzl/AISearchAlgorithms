@@ -1,7 +1,9 @@
 import java.util.*;
 
 /**
- * Best-First-Search Algorithms class.
+ * File Best.java
+ * 
+ * Represents Best-First-Search Algorithms class.
  * 
  * @author Isaac Yong
  * @version 17/10/2013
@@ -12,11 +14,19 @@ public class Best extends DFS {
 	public Best() {
 		super();
 	}
-
+	
+	/**
+	 * To call the parent constructor
+	 * 
+	 * @param fileName
+	 */ 
 	public Best(String fileName) {
 		super(fileName);
 	}
-
+	
+	/**
+         * To act as primary algorithm computation function
+         */
 	public void compute() {
 		this.view.printMaze(this.currentNode, this.closedNodes); // Print the current maze
 		this.checkerObject.nodeCheckAll(this.currentNode, this.closedNodes);
@@ -31,7 +41,10 @@ public class Best extends DFS {
 			return;
 		}
 	}
-
+	
+	/**
+	 * Stage 1 Computation of algorithm
+	 */
 	public boolean stageOne() {
 		int smallest = 0, index = -1;
 		ArrayList<Node> tempNodeList = new ArrayList<Node>(4);
@@ -85,7 +98,14 @@ public class Best extends DFS {
 
 		return true;
 	}
-
+	
+	/**
+	 * To calculate node distance to goal
+	 * 
+	 * @param node
+	 * 
+	 * @return integer of distance to goal
+	 */
 	public int calculateDistance(Node node) {
 		return (Math.abs(this.checkerObject.getGoal().getX() - node.getX()) + Math.abs(this.checkerObject.getGoal().getY() - node.getY()));
 	}
