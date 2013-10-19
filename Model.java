@@ -2,21 +2,34 @@ import java.io.*;
 import java.util.*;
 
 /**
- * Handles File I/O.
+ * File Model.java
+ * 
+ * To handles File I/O.
  * 
  * @author Isaac Yong
  * @version 17/10/2013
  */
+ 
 public class Model {
 	private ArrayList<Node> wallList = null;
 	private String mazeSize = null ;
 
+	/**
+         * To call the parent constructor
+         * 
+         * @param fileName
+         */ 
 	public Model(String fileName) {
 		mazeSize = new String();
 		wallList = new ArrayList<Node>();
 		readFile(fileName);
 	}
 
+	/**
+	 * To read the text file
+	 * 
+	 * @param fileName
+	 */
 	public void readFile(String fileName) {
 		try {
 			String tmpStr = "", x = "", y = "";
@@ -42,11 +55,18 @@ public class Model {
 		}
 	}
 
-	// Accessor for wallList
+	/**
+	 * Accessor for wallList
+	 */
 	public ArrayList<Node> getWalls() {
 		return this.wallList;
 	}
 
+	/**
+	 * To get the size of the maze
+	 * 
+	 * @return coordinates of the nodes
+	 */
 	public Node getSize() {
 		String x = "", y ="";
 		mazeSize = mazeSize.trim();
