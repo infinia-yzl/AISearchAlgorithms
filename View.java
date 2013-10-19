@@ -1,7 +1,9 @@
 import java.util.*;
 
 /**
- * Handles output to screen.
+ * File View.java
+ * 
+ * To handle output to screen.
  * 
  * @author Isaac Yong
  * @version 17/10/2013
@@ -12,6 +14,9 @@ public class View {
 	private ArrayList<Node> wallList = null;
 	private Node goal = null, size = null;
 
+	/**
+	 * To act as the constructor
+	 */
 	public View(ArrayList<Node> wallList, Node goal, Node size) {
 		this.wallList = wallList;
 		this.goal = goal;
@@ -19,7 +24,10 @@ public class View {
 		this.maze = new String[size.getX()][size.getY()];
 		populateMaze();
 	}
-
+	
+	/**
+	 * To initialize the maze
+	 */
 	public void populateMaze() {
 		// Populate array with the walls
 		for (Node wall : wallList) {
@@ -40,7 +48,13 @@ public class View {
 			}
 		}
 	}
-
+	
+	/**
+	 * To print out the maze
+	 * 
+	 * @param currentNode
+	 * @param closedNodes
+	 */
 	public void printMaze(Node currentNode, ArrayList<Node> closedNodes) {
 		// Closed nodes will use "X" symbol
 		for (Node closed : closedNodes) {
@@ -58,6 +72,12 @@ public class View {
 		}
 	}
 
+	/**
+	 * To print out the solution path 
+	 * 
+	 * @param closeNodes
+	 * @param deadNotes
+	 */
 	public void printSolution(ArrayList<Node> closedNodes, ArrayList<Node> deadEndList) {
 		// Closed nodes will use "X" symbol
 		for (Node closed : closedNodes) {
@@ -83,16 +103,26 @@ public class View {
 		}
 	}
 
+	/**
+	 * To print out the counter
+	 * 
+	 * @param integer counter
+	 */
 	public void printCounter(int counter) {
 		System.out.println();
 		System.out.println("Step #" + counter);
 	}
 
-	// Reach goal
+	/** 
+	 * To print out a message when successfully reach the goal 
+	 */
 	public void printSuccess() {
 		System.out.println("--- Goal achieved! ---");
 	}
 
+	/**
+	 * To print out error messages if there are errors
+	 */
 	public void printFailure() {
 		System.out.println("------ ERROR ------");
 		System.out.println("Unable to reach solution!");
