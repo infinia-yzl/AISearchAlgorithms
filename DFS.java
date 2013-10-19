@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 
 /**
- * Depth-First-Search Algorithms class.
+ * File DFS.java
+ * 
+ * Represents Depth-First-Search Algorithms class.
  * 
  * @author Isaac Yong
  * @version 10/10/2013
@@ -13,12 +15,21 @@ public class DFS extends Algorithms {
 	public DFS() {
 		super();
 	}
-
+	
+	
+        /**
+         * To call the parent constructor
+         * 
+         * @param fileName 
+         */
 	public DFS(String fileName) {
 		super(fileName);
 		deadEndList = new ArrayList<Node>();
 	}
-
+	
+	/**
+         * To act as primary algorithm computation function
+         */
 	public void compute() {
 		this.view.printMaze(this.currentNode, this.closedNodes); // Print the current maze
 		if(this.checkerObject.isGoal(this.currentNode)) {
@@ -36,7 +47,9 @@ public class DFS extends Algorithms {
 		compute();
 	}
 
-	// Stage One Movement - Move to any unexplored node
+	/**
+	 * Stage One Movement - Move to any unexplored node
+	 */
 	public boolean stageOne() {
 		this.closedNodes.add(new Node(this.currentNode.getX(), this.currentNode.getY())); // Create new Node to prevent pointing to currentNode's address
 		this.expandCounter++;
@@ -62,6 +75,9 @@ public class DFS extends Algorithms {
 		return false;
 	}
 
+	/**
+	 * To verify if there is a dead end
+	 */
 	public void verifyDeadEnd() {
 		int deadCount = 0;
 		if(this.checkerObject.getUp()==0) {
@@ -82,7 +98,9 @@ public class DFS extends Algorithms {
 		}
 	}
 
-	// Traceback steps out of dead end
+	/**
+	 * To traceback steps out of dead end
+ 	 */
 	public void backTrack() {
 		boolean tmpCounter = false, skipCounter = false;
 		for(int i = closedNodes.size()-1; i >= 0; i--) {
