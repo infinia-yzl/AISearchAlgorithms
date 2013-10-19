@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 
 /**
- * Breadth-First-Search Algorithms class.
+ * File BFS.java
+ * 
+ * Represents Breadth-First-Search Algorithms class.
  * 
  * @author Isaac Yong
  * @version 10/10/2013
@@ -13,11 +15,18 @@ public class BFS extends Algorithms {
 	public BFS() {
 		super();
 	}
-
+	
+	/**
+	 * To call the parent constructor
+	 * @param fileName 
+	 */
 	public BFS(String fileName) {
 		super(fileName);
 	}
 
+	/**
+	 * To act as primary algorithm computation function
+	 */
 	public void compute() {
 		this.view.printMaze(this.currentNode, this.closedNodes); // Print the current maze
 		if(openNodes.isEmpty()) {
@@ -44,7 +53,9 @@ public class BFS extends Algorithms {
 		compute();
 	}
 
-	// Adds new nodes to the openNodes ArrayList
+	/**
+	 * To add new nodes to the openNodes ArrayList
+	 */
 	public void stageOne() {
 		if(this.checkerObject.getUp()==1) {
 			// Able to move to up
