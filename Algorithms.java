@@ -1,10 +1,13 @@
 import java.util.ArrayList;
 /**
- * Parent Algorithms class.
+ * File Algorithms.java
+ * 
+ * Represents Parent Algorithms class.
  * 
  * @author Isaac Yong
  * @version 10/10/2013
  */
+ 
 public abstract class Algorithms {
 	protected int expandCounter = -1;
 	protected Node currentNode = null;
@@ -12,7 +15,10 @@ public abstract class Algorithms {
 	protected ArrayList<Node> closedNodes = null; // Explored Nodes
 	protected Checker checkerObject = null;
 	protected View view = null;
-
+	
+	/**
+ 	* To act as the parent constructor as well
+ 	*/
 	public Algorithms() {
 		expandCounter = 0;
 		this.currentNode = new Node(1, 0);
@@ -22,7 +28,12 @@ public abstract class Algorithms {
 		checkerObject = new Checker("maze.txt");
 		view = new View(checkerObject.getWallList(), checkerObject.getGoal(), checkerObject.getSize());
 	}
-
+	
+	/**
+ 	* To act as the parent constructor as well
+ 	* 
+ 	* @param fileName
+ 	*/
 	public Algorithms(String fileName) {
 		expandCounter = 0;
 		this.currentNode = new Node(1, 0);
