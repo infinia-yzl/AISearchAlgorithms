@@ -17,19 +17,19 @@ public class DFS extends Algorithms {
 	}
 	
 	
-        /**
-         * To call the parent constructor
-         * 
-         * @param fileName 
-         */
+    /**
+     * To call the parent constructor
+     * 
+     * @param fileName 
+     */
 	public DFS(String fileName) {
 		super(fileName);
 		deadEndList = new ArrayList<Node>();
 	}
 	
 	/**
-         * To act as primary algorithm computation function
-         */
+     * To act as primary algorithm computation function
+     */
 	public void compute() {
 		this.view.printMaze(this.currentNode, this.closedNodes); // Print the current maze
 		if(this.checkerObject.isGoal(this.currentNode)) {

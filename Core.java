@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * File Core.java
  * 
@@ -9,19 +11,40 @@
 
 public class Core {
 	public static void main(String[] args) {
-// DFS dfs = new DFS("maze.txt");		
-// dfs.compute();
+		Scanner scanIn = new Scanner(System.in);
 
-		// BFS bfs = new BFS("maze.txt");		
-		// bfs.compute();
+		System.out.println("Please key in number for following algorithms:");
+		System.out.println("[1] Depth-First-Search");
+		System.out.println("[2] Breadth-First-Search");
+		System.out.println("[3] Best-First-Search");
+		System.out.println("[4] Hill Climbing Search");
+		System.out.println("[5] A* Search");
+		System.out.println("[6] Custom Search");
+		
+		int input = scanIn.nextInt();
 
-		// Best best = new Best("maze.txt");
-		// best.compute();
-		
-		//HillClimbing hill = new HillClimbing("maze.txt");		
-		//hill.compute();
-		
-		AStar a = new AStar("maze.txt");		
-		a.compute();
+		if (input==1) {
+			DFS dfs = new DFS("maze.txt");		
+			dfs.compute();
+		}
+		else if (input==2) {
+			BFS bfs = new BFS("maze.txt");		
+			bfs.compute();
+		}
+		else if (input==3) {
+			Best best = new Best("maze.txt");
+			best.compute();
+		}
+		else if (input==4) {	
+			HillClimbing hill = new HillClimbing("maze.txt");		
+			hill.compute();
+		}
+		else if (input==5) {
+			AStar a = new AStar("maze.txt");		
+			a.compute();
+		}
+		else if (input==6) {
+
+		}
 	}
 }
