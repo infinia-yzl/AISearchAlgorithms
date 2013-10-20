@@ -41,6 +41,17 @@ public class Checker {
 		checkDown(node);
 		checkRight(node);
 	}
+
+	/**
+	 * To check all nodes (For Custom Search)
+	 */
+	public void nodeCheckAll(Node node, ArrayList<Node> closedNodes, Boolean dump) {
+		this.closedNodes = closedNodes;
+		checkCustomUp(node);
+		checkCustomLeft(node);
+		checkCustomDown(node);
+		checkCustomRight(node);
+	}
 	
 	/**
 	 * To check if the node above is a wall, empty or visited
@@ -226,6 +237,128 @@ public class Checker {
 
 	public ArrayList<Node> getWallList() {
 		return this.wallList;
+	}
+
+
+
+	//**************************//
+	//** Custom Search Checks **//
+	//**************************//
+
+	/**
+	 * To check if the node above is a wall, empty or visited
+	 * 
+	 * @param node
+	 */
+	public void checkCustomUp(Node node) {
+		this.up = -1; // reset value to -1
+		// Prevent out of bounds (negative coordinates)
+		if((node.getX()-2) >= 0) {
+			if(checkWall(new Node( (node.getX()-2), (node.getY()) ))) {
+				if(this.closedNodes.size()==0)
+					this.up = 1;
+				else {
+					for(int i = 0; i < this.closedNodes.size(); i++) {
+						// Check with closed nodes to differenciate explored or not
+						if(new Node(node.getX()-2, node.getY()).compareTo(this.closedNodes.get(i))==1) {
+							this.up = 2; // explored node
+							break;
+						}
+						else
+							this.up = 1; // empty
+					}
+				}
+			} else {
+				this.up = 0; // set 0 to specify as wall
+			}
+		}
+	}
+
+	/**
+	 * To check if the node on the left is a wall, empty or visited
+	 * 
+	 * @param node
+	 */
+	public void checkCustomLeft(Node node) {
+		this.left = -1; // reset value to -1
+		// Prevent out of bounds (negative coordinates)
+		if((node.getY()-2) >= 0) {
+			if(checkWall(new Node( (node.getX()), (node.getY()-2) ))) {
+				if(this.closedNodes.size()==0)
+					this.left = 1;
+				else {
+					for(int i = 0; i < this.closedNodes.size(); i++) {
+						// Check with closed nodes to differenciate explored or not
+						if(new Node(node.getX(), node.getY()-2).compareTo(this.closedNodes.get(i))==1) {
+							this.left = 2; // explored node
+							break;
+						}
+						else
+							this.left = 1; // empty
+					}
+				}
+			} else {
+				this.left = 0; // set 0 to specify as wall
+			}
+		}
+	}
+
+	/**
+	 * To check if the node below is a wall, empty or visited
+	 * 
+	 * @param node
+	 */
+	public void checkCustomDown(Node node) {
+		this.down = -1; // reset value to -1
+		// Prevent out of bounds
+		if((node.getX()+2) < this.size.getX()) {
+			if(checkWall(new Node( (node.getX()+2), (node.getY()) ))) {
+				if(this.closedNodes.size()==0)
+					this.down = 1;
+				else {
+					for(int i = 0; i < this.closedNodes.size(); i++) {
+						// Check with closed nodes to differenciate explored or not
+						if(new Node(node.getX()+2, node.getY()).compareTo(this.closedNodes.get(i))==1) {
+							this.down = 2; // explored node
+							break;
+						}
+						else
+							this.down = 1; // empty
+					}
+				}
+			} else {
+				this.down = 0; // set 0 to specify as wall
+			}
+		}
+	}
+
+	/**
+	 * To check if the node on the right is a wall, empty or visited
+	 * 
+	 * @param node
+	 */
+	public void checkCustomRight(Node node) {
+		this.right = -1; // reset value to -1
+		// Prevent out of bounds
+		if((node.getY()-2) < this.size.getY()) {
+			if(checkWall(new Node( (node.getX()), (node.getY()+2) ))) {
+				if(this.closedNodes.size()==0)
+					this.right = 1;
+				else {
+					for(int i = 0; i < this.closedNodes.size(); i++) {
+						// Check with closed nodes to differenciate explored or not
+						if(new Node(node.getX(), node.getY()+2).compareTo(this.closedNodes.get(i))==1) {
+							this.right = 2; // explored node
+							break;
+						}
+						else
+							this.right = 1; // empty
+					}
+				}
+			} else {
+				this.right = 0; // set 0 to specify as wall
+			}
+		}
 	}
 
 }

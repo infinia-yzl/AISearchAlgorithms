@@ -44,7 +44,8 @@ public class Core {
 			a.compute();
 		}
 		else if (input==6) {
-
+			Custom aheadTwoSteps = new Custom("maze.txt");
+			aheadTwoSteps.compute();
 		}
 	}
 }

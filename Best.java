@@ -81,7 +81,6 @@ public class Best extends DFS {
 		// Make sure smallest variable starts out as biggest value
 		smallest = distance.get(0) + distance.get(1) + distance.get(2) + distance.get(3) + 999;
 
-		//TODO: resolve similar distances
 		for(int i = 0; i < 4; i++) {
 			if((distance.get(i) >= 0) && (distance.get(i) < smallest)) {
 				smallest = distance.get(i);
