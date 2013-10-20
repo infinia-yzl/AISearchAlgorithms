@@ -1,0 +1,14 @@
+Isaac Yong Zhong Leh (7437234)
+Liew Kay Sing ()
+
+Features
+Depth-First-Search with Solution Path
+Breadth-First-Search (reach Goal only)
+Best-First-Search with Solution Path
+
+Missing
+Breadth-First-Search cannot print Solution Path
+
+Resources
+Java Documentation (by Oracle)
+Lecture Slides
