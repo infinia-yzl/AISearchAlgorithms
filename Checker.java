@@ -2,10 +2,10 @@ import java.util.ArrayList;
 
 /**
  * File Checker.java
- * Represents hecker class that contains general checking functions.
+ * Represents Checker class that contains general checking functions.
  * 
  * @author Isaac Yong
- * @version 14/10/2013
+ * @version 18/10/2013
  */
 
 public class Checker {
@@ -15,17 +15,16 @@ public class Checker {
 	private Node goal = null, size = null;
 	
 	
-        /**
-         * To call the parent constructor
-         * 
-         * @param fileName 
-         */
+    /**
+     * To call the parent constructor
+     * 
+     * @param fileName 
+     */
 	public Checker(String fileName) {
 		Model model = new Model(fileName);
 		this.wallList = model.getWalls(); // Assume the function will return an arraylist of walls
-		// Ensure the getSize function swaps the X and Y raw data to suit our system's pattern
-		this.size = model.getSize();
-		this.goal = computeGoal(this.size); // Assume the model function will pass in the size stored in a Node
+		this.size = model.getSize(); // Assume the model function will pass in the size stored in a Node
+		this.goal = computeGoal(this.size); 
 	}
 
 	/**
@@ -44,6 +43,9 @@ public class Checker {
 
 	/**
 	 * To check all nodes (For Custom Search)
+	 * @param node
+	 * @param closedNodes
+	 * @param true
 	 */
 	public void nodeCheckAll(Node node, ArrayList<Node> closedNodes, Boolean dump) {
 		this.closedNodes = closedNodes;

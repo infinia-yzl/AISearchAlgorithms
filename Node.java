@@ -62,6 +62,8 @@ public class Node implements Comparable<Node> {
 
 	/**
 	 * To compare equality between two nodes
+	 * @param nodeB
+	 * @return 1: Equal, 0: Not Equal
 	 */
 	public int compareTo(Node nodeB) {
 		if((this.x == nodeB.getX())&&(this.y == nodeB.getY())) {

@@ -5,8 +5,8 @@ import java.util.*;
  * 
  * Represents A* Search Algorithm class.
  * 
- * @author Isaac Yong
- * @version 10/10/2013
+ * @author KSing, Isaac Yong
+ * @version 18/10/2013
  */
 
 public class AStar extends Algorithms{
@@ -29,8 +29,8 @@ public class AStar extends Algorithms{
     	}
 
 	/**
-         * To act as primary algorithm computation function
-         */
+     * To act as primary algorithm computation function
+     */
 	public void compute(){
 		this.view.printMaze(this.currentNode, this.closedNodes); // Print the current maze
 		if(this.checkerObject.isGoal(this.currentNode)) {
@@ -50,8 +50,8 @@ public class AStar extends Algorithms{
 	 }
 	
 	/**
-         * Stage 1 Computation of algorithm
-         */
+     * Stage 1 Computation of algorithm
+     */
 	public boolean stageOne(){
 		ArrayList<Node> tempNodeList = new ArrayList<Node>();   
 		int[] disList = new int[4];
@@ -105,14 +105,14 @@ public class AStar extends Algorithms{
 	return false;
 	}
 
-    	 /**
-         * To calculate sum of the current distance to reach the node and the estimated distance from the node to get to the goal
-         * 
-         * @param node
-         * @param tempNodeList
-         * 
-         * @return integer of current distance to reach the node plus estimated distance from the node to get to the goal
-         */
+     /**
+     * To calculate sum of the current distance to reach the node and the estimated distance from the node to get to the goal
+     * 
+     * @param node
+     * @param tempNodeList
+     * 
+     * @return integer of current distance to reach the node plus estimated distance from the node to get to the goal
+     */
 	public int calculateDistance(Node node, ArrayList<Node> tempNodeList) {
 		int n = Math.abs(this.goal.getX() - node.getX()) + Math.abs(this.goal.getY() - node.getY());
 		int m =0;

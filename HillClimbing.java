@@ -5,8 +5,8 @@ import java.util.*;
  * 
  * Represents A* Search Algorithm class.
  * 
- * @author Isaac Yong
- * @version 10/10/2013
+ * @author KSing, Isaac Yong
+ * @version 17/10/2013
  */
 
 public class HillClimbing extends Algorithms{
@@ -62,7 +62,7 @@ public class HillClimbing extends Algorithms{
         this.view.printCounter(this.expandCounter);
         
         if (verifyDeadEnd()){
-                System.out.println("No solution");
+                this.view.printFailure();
                 return false;
         }
          

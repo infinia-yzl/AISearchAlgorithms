@@ -4,7 +4,7 @@
  * Represents Custom-Search Algorithms class.
  * 
  * @author Isaac Yong
- * @version 17/10/2013
+ * @version 18/10/2013
  */
 
 public class Custom extends DFS {
@@ -65,6 +65,9 @@ public class Custom extends DFS {
 		compute();
 	}
 
+	/**
+	 * Checks 2 nodes ahead from current node
+	 */
 	public boolean futureStep() {
 		this.closedNodes.add(new Node(this.currentNode.getX(), this.currentNode.getY())); // Create new Node to prevent pointing to currentNode's address
 		this.expandCounter++;

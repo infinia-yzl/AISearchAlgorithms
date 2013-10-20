@@ -9,6 +9,9 @@ Best-First-Search with Solution Path
 Missing
 Breadth-First-Search cannot print Solution Path
 
+Bugs
+Custom Search does not reach goal
+
 Resources
 Java Documentation (by Oracle)
 Lecture Slides
