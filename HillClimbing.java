@@ -1,19 +1,37 @@
 import java.util.*;
 
+/**
+ * File HillClimbing.java
+ * 
+ * Represents A* Search Algorithm class.
+ * 
+ * @author Isaac Yong
+ * @version 10/10/2013
+ */
+
 public class HillClimbing extends Algorithms{
     private ArrayList<Node> tempNodeList = new ArrayList<Node>(); // store the shortest SLD of each node and become one path
-     private Node goal = this.checkerObject.getGoal();
-     private ArrayList<Node> deadEndList = null;
+    private Node goal = this.checkerObject.getGoal();
+    private ArrayList<Node> deadEndList = null;
+    
     public HillClimbing(){
         super();
     }
-
+    
+    /**
+     * To call the parent constructor
+     * 
+     * @param fileName 
+     */  
     public HillClimbing(String filename){
         super(filename);
         deadEndList = new ArrayList<Node>();
     }
 
-    // it won't compute again cause it ONLY find the shortest SLD and NOT backtracking
+    /**
+     * To act as primary algorithm computation function
+     * It won't compute again cause it ONLY find the shortest SLD and NOT backtracking
+     */ 
     public void compute(){
         this.view.printMaze(this.currentNode, this.closedNodes); // Print the current maze
         if(this.checkerObject.isGoal(this.currentNode)) {
@@ -30,6 +48,9 @@ public class HillClimbing extends Algorithms{
         compute();
     }
 
+    /**
+     * Stage 1 Computation of algorithm
+     */
     public boolean stageOne(){
          int[] disList = new int[4];
          int lowest=100, count =0, i = 0, j =-1;
@@ -94,11 +115,26 @@ public class HillClimbing extends Algorithms{
         return false;
     }
 
+     /**
+      * To calculate distance of the node to goal
+      * 
+      * @param node
+      * 
+      * @return integer of distance from node to goal
+      */
     public int calculateDistance(Node node) {
          System.out.println("ch4 "+ node.getX());
         return (Math.abs(this.goal.getX() - node.getX()) + Math.abs(this.goal.getY() - node.getY()));
     }
 
+     /**
+      * To calculate sum of the current distance to reach the node and the estimated distance from the node to get to the goal
+      * 
+      * @param node
+      * @param tempNodeList
+      * 
+      * @return integer of current distance to reach the node plus estimated distance from the node to get to the goal
+      */
     public int calculateDistance(Node node, ArrayList<Node> tempNodeList) {
          int n = Math.abs(this.goal.getX() - node.getX()) + Math.abs(this.goal.getY() - node.getY());
          int m =0;
@@ -113,6 +149,9 @@ public class HillClimbing extends Algorithms{
     
     }
 
+    /**
+     * To verify the dead node
+     */
     public boolean verifyDeadEnd() {
         int deadCount = 0;
         if(this.checkerObject.getUp()==0) {
