@@ -30,6 +30,9 @@ public class Checker {
 
 	/**
 	 * To check all nodes
+	 * 
+	 * @param node
+	 * @param closedNodes
 	 */
 	public void nodeCheckAll(Node node, ArrayList<Node> closedNodes) {
 		this.closedNodes = closedNodes;
@@ -185,6 +188,8 @@ public class Checker {
 
 	/**
 	 * To receive the maze size stored in a Node and computes the Goal Node coordinates
+	 * 
+	 * @param mazeSize
 	 * 
 	 * @return goal node coordinates
 	 */
