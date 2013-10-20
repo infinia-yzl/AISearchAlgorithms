@@ -25,8 +25,8 @@ public class Best extends DFS {
 	}
 	
 	/**
-     * To act as primary algorithm computation function
-     */
+     	 * To act as primary algorithm computation function
+       	 */
 	public void compute() {
 		this.view.printMaze(this.currentNode, this.closedNodes); // Print the current maze
 		this.checkerObject.nodeCheckAll(this.currentNode, this.closedNodes);
